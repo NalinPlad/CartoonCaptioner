@@ -301,7 +301,7 @@ textarea {
   margin-left: auto;
   margin-right: auto;
   display: block;
-  max-height: 100vh;
+  max-height: 50vh;
   max-width: 40vw;
   user-drag: none;
   -webkit-user-drag: none;
@@ -352,7 +352,7 @@ textarea {
 .usercap:focus {
   box-shadow: 0px 0px 10px black;
   color: #000000;
-  width: 80%;
+  width: 30%;
 }
 
 .ofcap {
@@ -393,6 +393,22 @@ textarea {
   text-align: center;
   font-family: 'Forum', cursive;
   font-size: 50px;
+
+  -webkit-user-select: none; /* Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+
+  text-align: center;
+  cursor: default;
 }
 
+body {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll; 
+}
 
+body::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}

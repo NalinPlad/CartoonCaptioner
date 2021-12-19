@@ -1,0 +1,153 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>CC</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Forum&family=Lora:ital@1&family=Quicksand:wght@300&display=swap');
+  </style>
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <p class="title">Cartoon Captioner</p>
+  
+  
+  <input id="usercapfield"class="usercap" placeholder="Type a caption..."></input>
+  <br/>
+  <button id="sub" class="submit">Submit</button>
+  <br/>
+  <button id="req" class="submit">New Image</button>
+  <br/>
+  <br/>
+  <img id ="cartoon" class="cartoon"/> 
+  
+  <div id="capdiv" class="capbox">
+    
+    <p id="usercap" class="caption"></p> 
+    <br/>
+    
+    
+    <div class="o">
+      <p class="ofcap">Oficial Caption</p>  
+      <p id="caption" class="caption"></p> 
+    </div>
+    
+  </div>
+  
+  <br/>
+
+
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+  <!-- main jquery stuff-->
+  <script>
+
+//KEYS id,pn,date,src,caption,cartoon_bank_url
+//note &ldquo; &rdquo;
+
+const URL = "https://www.newyorker.com/cartoons/random/randomAPI"
+
+//Utility Functions
+String.prototype.allReplace = function(obj) {
+    var retStr = this;
+    for (var x in obj) {
+        retStr = retStr.replace(new RegExp(x, 'g'), obj[x]);
+    }
+    return retStr;
+};
+
+myopacity = 0
+function FadeFunction(t) {
+  
+   if (myopacity<1) {
+      myopacity += .075;
+     setTimeout(function(){FadeFunction()},t);
+   }
+   document.getElementById("capdiv").style.opacity = myopacity;
+}
+
+function RL(){
+  $.getJSON(URL, function(result){
+      if(result[0].caption != ''){
+        
+        clean = result[0].caption.allReplace({'&ldquo;' : '“','&rdquo;' : '”','&mdash;' : '—'})
+
+        console.log(clean)
+        $("p#caption").text(clean)
+        $("img#cartoon").attr('src', result[0].src)
+
+        document.getElementById("capdiv").style.opacity = 0
+
+        initTrue = true
+      } else{
+        RL()
+      }
+    })
+}
+  
+
+RL()
+//Set initial opacity
+document.getElementById("capdiv").style.opacity = 0
+
+//Requesting a new image
+$('button#req').click(function(e){
+    RL()
+})
+
+//Submitting a caption
+$('button#sub').click(function(j){
+  if($("input#usercapfield").val() != ''){
+   $("p#usercap").text("“" + $("input#usercapfield").val() + "”")
+    FadeFunction(100) 
+  }
+  
+})
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  </script>
+  
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>

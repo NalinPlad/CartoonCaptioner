@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
 
+  <script src="https://kit.fontawesome.com/58291c9b15.js" crossorigin="anonymous"></script>
   <meta name="theme-color" content="#fafafa">
 
   <style>
@@ -32,11 +33,11 @@
   <p class="title">Cartoon Captioner</p>
   
   
-  <input id="usercapfield"class="usercap" placeholder="Type a caption..." data-lpignore="true"></input>
+  <input id="usercapfield"class="usercap" placeholder="Type a caption..." data-lpignore="true" autocomplete="off"></input>
   <br/>
   <button id="sub" class="submit">Submit</button>
   <br/>
-  <button id="req" class="submit">New Image</button>
+  <button id="req" class="submit"><i class="fas fa-redo-alt"></i></button>
   <br/>
   <br/>
   <img id ="cartoon" class="cartoon"/> 
@@ -94,7 +95,7 @@ function FadeFunction(t) {
 function RL(){
   $.getJSON(URL, function(result){
       if(result[0].caption != ''){
-        
+
         clean = result[0].caption.allReplace({'&ldquo;' : '“','&rdquo;' : '”','&mdash;' : '—'})
 
         console.log(clean)
@@ -117,11 +118,15 @@ document.getElementById("capdiv").style.opacity = 0
 
 //Requesting a new image
 $('button#req').click(function(e){
-    RL()
+  $("img#cartoon").addClass("fadeo")
+  RL()
+  setTimeout(function(){$("img#cartoon").removeClass("fadeo");}, 500)
+
 })
 
 //Submitting a caption
 $('button#sub').click(function(j){
+  
   if($("input#usercapfield").val() != ''){
    $("p#usercap").text("“" + $("input#usercapfield").val() + "”")
     FadeFunction(100) 

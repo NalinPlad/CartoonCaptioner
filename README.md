@@ -1,10 +1,7 @@
 # CartoonCaptioner
 
-uncool thing i made.
+A small site that allows you to make captions for New Yorker cartoons.
+Utilizes the New Yorker Cartoons API.
 
-kind of like this https://github.com/achou11/ye-olde-yorker
-but with better css 😎
+###### Better CSS than [Ye Olde Yorker](https://yeoldeyorker.hashbase.io/) 😎
 
-also
-
-wow thats alot of unnecessary css..
